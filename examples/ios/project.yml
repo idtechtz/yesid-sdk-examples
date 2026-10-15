@@ -1,0 +1,32 @@
+name: YesidSample
+options:
+  bundleIdPrefix: io.yesid
+  deploymentTarget:
+    iOS: "15.6"
+settings:
+  base:
+    SWIFT_VERSION: "5.0"
+targets:
+  YesidSample:
+    type: application
+    platform: iOS
+    sources:
+      - path: YesidSample
+        excludes: ["Config.example.plist"]
+      # Your settings; git-ignored. The app shows a "configuration missing" screen when it is absent.
+      - path: YesidSample/Config.plist
+        optional: true
+    info:
+      path: YesidSample/Info.plist
+      properties:
+        CFBundleDisplayName: Yesid Sample
+        UILaunchScreen: {}
+        UISupportedInterfaceOrientations: [UIInterfaceOrientationPortrait]
+        NSCameraUsageDescription: "The camera is used to scan your ID document and to check that you are a live person."
+        NSPhotoLibraryUsageDescription: "Choose a photo of your ID document from the library."
+        NSAppTransportSecurity:
+          NSAllowsLocalNetworking: true   # lets the sample talk to the reference backend on your Mac over http
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: io.yesid.sample
+        TARGETED_DEVICE_FAMILY: "1"

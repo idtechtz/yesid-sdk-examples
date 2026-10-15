@@ -11,3 +11,4 @@ xcuserdata/
 *.apk
 *.ipa
 .env.local
+examples/ios/YesidSample/Config.plist

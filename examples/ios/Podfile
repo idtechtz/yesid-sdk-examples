@@ -1,0 +1,29 @@
+# Yesid SDK pods are published on GitHub as a CocoaPods spec repo (no credentials needed).
+source 'https://github.com/idtechtz/yesid-ios-pods-frameworks.git'
+source 'https://cdn.cocoapods.org/'
+
+platform :ios, '15.6'
+use_frameworks!
+
+YESID_VERSION = '0.7.0'   # the version in ../../docs/VERSION_MATRIX.md
+
+target 'YesidSample' do
+  pod 'YesidLicensing',          YESID_VERSION
+  pod 'YesidOCRCamera',          YESID_VERSION
+  pod 'YesidFaceAuthentication', YESID_VERSION
+end
+
+post_install do |installer|
+  installer.pods_project.targets.each do |t|
+    t.build_configurations.each do |c|
+      c.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '15.6'
+    end
+  end
+  # ML Kit has no arm64 simulator slice: on Apple-silicon Macs run the simulator as x86_64 (Rosetta).
+  installer.aggregate_targets.each do |agg|
+    agg.user_project.native_targets.each do |t|
+      t.build_configurations.each { |c| c.build_settings['EXCLUDED_ARCHS[sdk=iphonesimulator*]'] = 'arm64' }
+    end
+    agg.user_project.save
+  end
+end

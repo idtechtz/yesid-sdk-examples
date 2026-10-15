@@ -5,7 +5,7 @@ Sample apps that show how to add the Yesid SDK (document scan, face liveness and
 | Platform | Status | Folder |
 |---|---|---|
 | Android | ready, verified against SDK 0.7.0 | [`examples/android`](examples/android) |
-| iOS | in preparation | `examples/ios` |
+| iOS | code ready, compiles; needs the 0.7.0 pods to be published, run on a physical iPhone | [`examples/ios`](examples/ios) |
 
 ## Start here (Android)
 1. Read [`examples/android/README.md`](examples/android/README.md): requirements, the five integration steps, troubleshooting.

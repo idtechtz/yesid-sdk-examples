@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>PUBLISHABLE_KEY</key><string></string>
+    <key>CONSUMER_USERNAME</key><string></string>
+    <key>ENVIRONMENT</key><string>sandbox</string>
+    <key>SESSION_URL</key><string>http://localhost:8787/session</string>
+    <key>OCR_LICENSE</key><string></string>
+    <key>FACE_LICENSE</key><string></string>
+</dict>
+</plist>

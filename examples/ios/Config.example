@@ -1,0 +1,3 @@
+Copy YesidSample/Config.example.plist to YesidSample/Config.plist and fill it in (Config.plist is git-ignored).
+Values come from Yesid when you are onboarded: publishable key, consumer username, OCR and face licence keys.
+SESSION_URL is YOUR backend endpoint that returns {"sessionId":"..."} (see ../backend). From the iOS simulator the host machine is http://localhost:8787/session.
