@@ -1,0 +1,27 @@
+[versions]
+# The Yesid SDK version this sample was verified against (see ../../docs/VERSION_MATRIX.md).
+yesidSdk = "0.7.0-local"
+agp = "8.13.0"
+kotlin = "2.2.0"
+coreKtx = "1.17.0"
+lifecycleRuntimeKtx = "2.10.0"
+activityCompose = "1.12.4"
+composeBom = "2024.09.00"
+desugar = "2.1.5"
+
+[libraries]
+yesid-licensing = { module = "io.yesid:licensing", version.ref = "yesidSdk" }
+yesid-card-detection = { module = "io.yesid:card_detection", version.ref = "yesidSdk" }
+yesid-face = { module = "io.yesid:face", version.ref = "yesidSdk" }
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
+androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
+androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
+androidx-compose-ui = { group = "androidx.compose.ui", name = "ui" }
+androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" }
+desugar = { module = "com.android.tools:desugar_jdk_libs", version.ref = "desugar" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }

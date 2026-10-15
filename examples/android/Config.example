@@ -1,0 +1,19 @@
+# Copy this file to Config.local (git-ignored) and fill it in. Values come from Yesid when you are onboarded.
+
+# Public key of your application. Safe to ship in the app.
+PUBLISHABLE_KEY=
+
+# The consumer (tenant) name Yesid gave you.
+CONSUMER_USERNAME=
+
+# sandbox (default) or production
+ENVIRONMENT=sandbox
+
+# Your BACKEND endpoint that creates a session and returns {"sessionId":"..."}.
+# The secret API key must live on that backend, never in the app. A 40-line reference backend is in ../backend.
+# From the Android emulator the host machine is http://10.0.2.2:<port>
+SESSION_URL=http://10.0.2.2:8787/session
+
+# Licence keys of the modules you use.
+OCR_LICENSE=
+FACE_LICENSE=

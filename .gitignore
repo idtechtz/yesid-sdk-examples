@@ -10,3 +10,4 @@ xcuserdata/
 .idea/
 *.apk
 *.ipa
+.env.local
