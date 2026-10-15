@@ -1,0 +1,12 @@
+Config.local
+local.properties
+.gradle/
+build/
+Pods/
+DerivedData/
+*.xcuserstate
+xcuserdata/
+.DS_Store
+.idea/
+*.apk
+*.ipa
