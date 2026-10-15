@@ -1,6 +1,6 @@
 [versions]
 # The Yesid SDK version this sample was verified against (see ../../docs/VERSION_MATRIX.md).
-yesidSdk = "0.7.0-local"
+yesidSdk = "0.7.0"
 agp = "8.13.0"
 kotlin = "2.2.0"
 coreKtx = "1.17.0"
