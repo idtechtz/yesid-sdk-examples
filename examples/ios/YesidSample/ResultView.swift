@@ -8,13 +8,27 @@ struct ResultView: View {
     let primary: (String, () -> Void)
     let secondary: (String, () -> Void)
 
+    private static let headlineCount = 5
+
+    private func row(_ k: String) -> some View {
+        HStack { Text(k); Spacer(); Text(fields[k] ?? "").multilineTextAlignment(.trailing) }.font(.subheadline)
+    }
+
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 10) {
                 Text(title).font(.title2).bold()
                 if let image { Image(uiImage: image).resizable().scaledToFit().frame(height: 180) }
-                ForEach(fields.keys.sorted(), id: \.self) { k in
-                    HStack { Text(k); Spacer(); Text(fields[k] ?? "").multilineTextAlignment(.trailing) }.font(.subheadline)
+                let keys = fields.keys.sorted()
+                ForEach(keys.prefix(Self.headlineCount), id: \.self) { k in row(k) }
+                if keys.count > Self.headlineCount {
+                    // Same collapsible card the Yesid demo uses for its extra result metadata.
+                    DisclosureGroup("More Highlights") {
+                        VStack(spacing: 8) { ForEach(Array(keys.dropFirst(Self.headlineCount)), id: \.self) { k in row(k) } }
+                            .padding(.top, 8)
+                    }
+                    .padding(12)
+                    .background(RoundedRectangle(cornerRadius: 10).fill(Color(.secondarySystemBackground)))
                 }
                 Button(primary.0, action: primary.1).buttonStyle(.borderedProminent)
                 Button(secondary.0, action: secondary.1).buttonStyle(.bordered)
