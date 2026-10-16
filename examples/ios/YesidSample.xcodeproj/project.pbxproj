@@ -8,8 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		20979DEFB0A1C52E49F238D8 /* SetupCheckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F9529B76B312BCB04065C96 /* SetupCheckView.swift */; };
+		28130A627E28FA2054F9142A /* StepHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C2FE0452786D4897EDD151 /* StepHeader.swift */; };
+		2901E4BB006D4D78EE34D6D5 /* Pods_YesidSample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2744F8734840CA64846E477A /* Pods_YesidSample.framework */; };
 		4EA5F7D833163CDCCF5D390B /* FaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BB2138A1F3D2388F583774 /* FaceView.swift */; };
-		4EDC1385F673CA709C104607 /* Pods_YesidSample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FDCAD4F85C5265FCF8718C03 /* Pods_YesidSample.framework */; };
 		88787C5A100C8BAA0A2FF318 /* OcrView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86B9E123CD318A03E1476FF6 /* OcrView.swift */; };
 		9E1C73E88BB4B07E6A29ADFE /* SessionApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5018C3007452EF2DE19A9F4 /* SessionApi.swift */; };
 		A0A894CDAA7635C590A2F31A /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C96E3A0A48C4DD76946C0C /* RootView.swift */; };
@@ -23,25 +24,26 @@
 		0F9529B76B312BCB04065C96 /* SetupCheckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupCheckView.swift; sourceTree = "<group>"; };
 		15BB2138A1F3D2388F583774 /* FaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceView.swift; sourceTree = "<group>"; };
 		1DED30D03498ED006D6CB004 /* YesidSampleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YesidSampleApp.swift; sourceTree = "<group>"; };
+		2744F8734840CA64846E477A /* Pods_YesidSample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YesidSample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		56ACE1292BD47761ED752A10 /* ResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultView.swift; sourceTree = "<group>"; };
 		6958DBBF6CFEC558AFC475B7 /* YesidSample.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = YesidSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		698AA6672812BEC533632C11 /* Pods-YesidSample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YesidSample.release.xcconfig"; path = "Target Support Files/Pods-YesidSample/Pods-YesidSample.release.xcconfig"; sourceTree = "<group>"; };
 		86B9E123CD318A03E1476FF6 /* OcrView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OcrView.swift; sourceTree = "<group>"; };
 		93634B7C7E59B696A6E9BF69 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		AB3F53C10CDAB9D431824DB3 /* Pods-YesidSample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YesidSample.release.xcconfig"; path = "Target Support Files/Pods-YesidSample/Pods-YesidSample.release.xcconfig"; sourceTree = "<group>"; };
+		93AE9AEF5789B14FA98902D5 /* Pods-YesidSample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YesidSample.debug.xcconfig"; path = "Target Support Files/Pods-YesidSample/Pods-YesidSample.debug.xcconfig"; sourceTree = "<group>"; };
+		B3C2FE0452786D4897EDD151 /* StepHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepHeader.swift; sourceTree = "<group>"; };
 		D53C27EAD15386759E10A12E /* Config.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Config.plist; sourceTree = "<group>"; };
-		DB334097010395319584727C /* Pods-YesidSample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YesidSample.debug.xcconfig"; path = "Target Support Files/Pods-YesidSample/Pods-YesidSample.debug.xcconfig"; sourceTree = "<group>"; };
 		DDF21E3B95CA04D7A2366293 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		E4C96E3A0A48C4DD76946C0C /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		E5018C3007452EF2DE19A9F4 /* SessionApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionApi.swift; sourceTree = "<group>"; };
-		FDCAD4F85C5265FCF8718C03 /* Pods_YesidSample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YesidSample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		E8AA5ACEA3962EA469A7AA55 /* Frameworks */ = {
+		E16A3E8FD5BBF2DEEA54C7E2 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4EDC1385F673CA709C104607 /* Pods_YesidSample.framework in Frameworks */,
+				2901E4BB006D4D78EE34D6D5 /* Pods_YesidSample.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -53,8 +55,8 @@
 			children = (
 				64723D8071EB3C161132FB8D /* YesidSample */,
 				E9DC850F601B931DFB159A27 /* Products */,
-				F2863CE6C606DEB4CEFF2070 /* Pods */,
-				CED5C1F71A070188AB7CC3EB /* Frameworks */,
+				8DFC18D59336C9B8AA375EB9 /* Pods */,
+				D66090C17B274BBB8716A51F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -70,15 +72,26 @@
 				E4C96E3A0A48C4DD76946C0C /* RootView.swift */,
 				E5018C3007452EF2DE19A9F4 /* SessionApi.swift */,
 				0F9529B76B312BCB04065C96 /* SetupCheckView.swift */,
+				B3C2FE0452786D4897EDD151 /* StepHeader.swift */,
 				1DED30D03498ED006D6CB004 /* YesidSampleApp.swift */,
 			);
 			path = YesidSample;
 			sourceTree = "<group>";
 		};
-		CED5C1F71A070188AB7CC3EB /* Frameworks */ = {
+		8DFC18D59336C9B8AA375EB9 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				FDCAD4F85C5265FCF8718C03 /* Pods_YesidSample.framework */,
+				93AE9AEF5789B14FA98902D5 /* Pods-YesidSample.debug.xcconfig */,
+				698AA6672812BEC533632C11 /* Pods-YesidSample.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		D66090C17B274BBB8716A51F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2744F8734840CA64846E477A /* Pods_YesidSample.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -91,16 +104,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		F2863CE6C606DEB4CEFF2070 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				DB334097010395319584727C /* Pods-YesidSample.debug.xcconfig */,
-				AB3F53C10CDAB9D431824DB3 /* Pods-YesidSample.release.xcconfig */,
-			);
-			name = Pods;
-			path = Pods;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -108,12 +111,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3D762212A70D07B700195259 /* Build configuration list for PBXNativeTarget "YesidSample" */;
 			buildPhases = (
-				2F0E2E36D3AEA16B0332977C /* [CP] Check Pods Manifest.lock */,
+				021820332799E7E5F4359B9C /* [CP] Check Pods Manifest.lock */,
 				9791B21A320B6544286C3C7F /* Sources */,
 				BD4D9B61FBF4704131E0AD6C /* Resources */,
-				E8AA5ACEA3962EA469A7AA55 /* Frameworks */,
-				984BC00C5EB2394F683A00CF /* [CP] Embed Pods Frameworks */,
-				B297CEF1CAAF0AAA64BD12D7 /* [CP] Copy Pods Resources */,
+				E16A3E8FD5BBF2DEEA54C7E2 /* Frameworks */,
+				53CAAA814CFEEB58F03809AC /* [CP] Embed Pods Frameworks */,
+				50EDDD932F54E65539D9080D /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -166,7 +169,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		2F0E2E36D3AEA16B0332977C /* [CP] Check Pods Manifest.lock */ = {
+		021820332799E7E5F4359B9C /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -188,24 +191,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		984BC00C5EB2394F683A00CF /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-YesidSample/Pods-YesidSample-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-YesidSample/Pods-YesidSample-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-YesidSample/Pods-YesidSample-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		B297CEF1CAAF0AAA64BD12D7 /* [CP] Copy Pods Resources */ = {
+		50EDDD932F54E65539D9080D /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -222,6 +208,23 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-YesidSample/Pods-YesidSample-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		53CAAA814CFEEB58F03809AC /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-YesidSample/Pods-YesidSample-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-YesidSample/Pods-YesidSample-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-YesidSample/Pods-YesidSample-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -236,6 +239,7 @@
 				A0A894CDAA7635C590A2F31A /* RootView.swift in Sources */,
 				9E1C73E88BB4B07E6A29ADFE /* SessionApi.swift in Sources */,
 				20979DEFB0A1C52E49F238D8 /* SetupCheckView.swift in Sources */,
+				28130A627E28FA2054F9142A /* StepHeader.swift in Sources */,
 				EA889414602049B8690576A9 /* YesidSampleApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -308,7 +312,7 @@
 		};
 		1F008BD01B0BDC18E6B71A2D /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DB334097010395319584727C /* Pods-YesidSample.debug.xcconfig */;
+			baseConfigurationReference = 93AE9AEF5789B14FA98902D5 /* Pods-YesidSample.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -382,7 +386,7 @@
 		};
 		8E8A7E8CA382157450CEFDE5 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AB3F53C10CDAB9D431824DB3 /* Pods-YesidSample.release.xcconfig */;
+			baseConfigurationReference = 698AA6672812BEC533632C11 /* Pods-YesidSample.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";

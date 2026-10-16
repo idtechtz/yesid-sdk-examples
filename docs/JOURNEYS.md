@@ -20,5 +20,8 @@ Three rows, each with a tick or a cross and a one-line fix:
 3. Face check.
 4. Result.
 
+## Progress and hints
+Document, Review and Face check/Result show a "Step n of 3" strip and one line naming the SDK call the screen uses and the file it lives in.
+
 ## Not built yet
-Progress strip ("Step n of 3"), per-screen "SDK call used here" hints, error playground, developer panel.
+Error playground, developer panel.

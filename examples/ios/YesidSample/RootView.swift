@@ -8,6 +8,7 @@ enum Step {
     case ocr(upload: Bool)
     case ocrDone(text: [String: String], portrait: UIImage?)
     case face(portrait: UIImage?)
+    case faceDone(summary: [String: String], portrait: UIImage?)
     case error(String)
 }
 
@@ -44,17 +45,37 @@ struct RootView: View {
         case .setup:
             SetupCheckView(onBack: { step = .home })
         case .ocr(let upload):
-            OcrView(sessionId: sessionId, upload: upload,
-                    onDone: { text, portrait in step = .ocrDone(text: text, portrait: portrait) },
-                    onNeedNewSession: { start(.ocr(upload: upload)) })
+            VStack(spacing: 0) {
+                StepHeader(step: 1, title: "Document",
+                           hint: "SDK call: OCRCameraUI(configurationBuilder:) in OcrView.swift")
+                OcrView(sessionId: sessionId, upload: upload,
+                        onDone: { text, portrait in step = .ocrDone(text: text, portrait: portrait) },
+                        onNeedNewSession: { start(.ocr(upload: upload)) })
+            }
         case .ocrDone(let text, let portrait):
-            ResultView(title: "Document scanned", fields: text, image: portrait,
-                       primary: ("Continue to face check", { start(.face(portrait: portrait)) }),
-                       secondary: ("Start over", { step = .home }))
+            VStack(spacing: 0) {
+                StepHeader(step: 2, title: "Review",
+                           hint: "Fields: response.documentText. Portrait: response.documentImages[\"portrait\"] (OcrView.swift)")
+                ResultView(title: "Document scanned", fields: text, image: portrait,
+                           primary: ("Continue to face check", { start(.face(portrait: portrait)) }),
+                           secondary: ("Start over", { step = .home }))
+            }
         case .face(let portrait):
-            FaceView(sessionId: sessionId, portrait: portrait,
-                     onDone: { summary in step = .ocrDone(text: summary, portrait: portrait) },
-                     onNeedNewSession: { start(.face(portrait: portrait)) })
+            VStack(spacing: 0) {
+                StepHeader(step: 3, title: "Face check",
+                           hint: "SDK call: FaceAuthCameraUI(configurationBuilder:) in FaceView.swift")
+                FaceView(sessionId: sessionId, portrait: portrait,
+                         onDone: { summary in step = .faceDone(summary: summary, portrait: portrait) },
+                         onNeedNewSession: { start(.face(portrait: portrait)) })
+            }
+        case .faceDone(let summary, let portrait):
+            VStack(spacing: 0) {
+                StepHeader(step: 3, title: "Result",
+                           hint: "faceSimilarity comes from onMatchResultsFirstImage (FaceView.swift)")
+                ResultView(title: "Verification complete", fields: summary, image: portrait,
+                           primary: ("Start a new verification", { start(.ocr(upload: false)) }),
+                           secondary: ("Home", { step = .home }))
+            }
         case .error(let message):
             VStack(spacing: 14) {
                 Text("Something went wrong").font(.title2).bold()

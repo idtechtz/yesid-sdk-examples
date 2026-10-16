@@ -35,6 +35,7 @@ private sealed interface Step {
     data class Ocr(val upload: Boolean) : Step
     data class OcrDone(val text: Map<String, String>, val portrait: Bitmap?) : Step
     data class Face(val portrait: Bitmap?) : Step
+    data class FaceDone(val summary: Map<String, String>, val portrait: Bitmap?) : Step
     data class Error(val message: String) : Step
 }
 
@@ -94,25 +95,44 @@ private fun SampleApp() {
             Button(onClick = { step = Step.Setup }) { Text("Setup check") }
         }
         Step.Setup -> SetupCheckScreen(onBack = { step = Step.Home })
-        is Step.Ocr -> OcrScreen(
-            sessionId = sessionId,
-            upload = s.upload,
-            onDone = { text, portrait -> step = Step.OcrDone(text, portrait) },
-            onNeedNewSession = { startWithNewSession(Step.Ocr(s.upload)) },
-        )
-        is Step.OcrDone -> ResultScreen(
-            title = "Document scanned",
-            fields = s.text,
-            image = s.portrait,
-            primary = "Continue to face check" to { startWithNewSession(Step.Face(s.portrait)) },
-            secondary = "Start over" to { step = Step.Home },
-        )
-        is Step.Face -> FaceScreen(
-            sessionId = sessionId,
-            portrait = s.portrait,
-            onDone = { summary -> step = Step.OcrDone(summary, s.portrait) },
-            onNeedNewSession = { startWithNewSession(Step.Face(s.portrait)) },
-        )
+        is Step.Ocr -> Column {
+            StepHeader(1, "Document", "SDK call: YesidOCRCamera.OCRCamera(...) in OcrScreen.kt")
+            OcrScreen(
+                sessionId = sessionId,
+                upload = s.upload,
+                onDone = { text, portrait -> step = Step.OcrDone(text, portrait) },
+                onNeedNewSession = { startWithNewSession(Step.Ocr(s.upload)) },
+            )
+        }
+        is Step.OcrDone -> Column {
+            StepHeader(2, "Review", "Fields: response.documentText. Portrait: response.documentImages[\"portrait\"] (OcrScreen.kt)")
+            ResultScreen(
+                title = "Document scanned",
+                fields = s.text,
+                image = s.portrait,
+                primary = "Continue to face check" to { startWithNewSession(Step.Face(s.portrait)) },
+                secondary = "Start over" to { step = Step.Home },
+            )
+        }
+        is Step.Face -> Column {
+            StepHeader(3, "Face check", "SDK call: FaceAuthenticationCamera.FaceAuthCamera(...) in FaceScreen.kt")
+            FaceScreen(
+                sessionId = sessionId,
+                portrait = s.portrait,
+                onDone = { summary -> step = Step.FaceDone(summary, s.portrait) },
+                onNeedNewSession = { startWithNewSession(Step.Face(s.portrait)) },
+            )
+        }
+        is Step.FaceDone -> Column {
+            StepHeader(3, "Result", "faceSimilarity comes from onMatchResultsFirstImage (FaceScreen.kt)")
+            ResultScreen(
+                title = "Verification complete",
+                fields = s.summary,
+                image = s.portrait,
+                primary = "Start a new verification" to { startWithNewSession(Step.Ocr(upload = false)) },
+                secondary = "Home" to { step = Step.Home },
+            )
+        }
         is Step.Error -> Centered {
             Text("Something went wrong", style = MaterialTheme.typography.headlineSmall)
             Text(s.message)
