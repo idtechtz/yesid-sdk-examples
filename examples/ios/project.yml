@@ -24,6 +24,7 @@ targets:
         UISupportedInterfaceOrientations: [UIInterfaceOrientationPortrait]
         NSCameraUsageDescription: "The camera is used to scan your ID document and to check that you are a live person."
         NSPhotoLibraryUsageDescription: "Choose a photo of your ID document from the library."
+        NSLocalNetworkUsageDescription: "Used to reach the sample session backend running on your computer."
         NSAppTransportSecurity:
           NSAllowsLocalNetworking: true   # lets the sample talk to the reference backend on your Mac over http
     settings:
