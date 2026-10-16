@@ -4,6 +4,7 @@ import UIKit
 /// Where the sample is: a tiny state machine so the integration code stays easy to read.
 enum Step {
     case home
+    case setup
     case ocr(upload: Bool)
     case ocrDone(text: [String: String], portrait: UIImage?)
     case face(portrait: UIImage?)
@@ -32,10 +33,16 @@ struct RootView: View {
         case .home:
             VStack(spacing: 14) {
                 Text("Yesid SDK sample").font(.title2).bold()
-                Button("Scan an ID document") { start(.ocr(upload: false)) }
-                Button("Use a photo from the library") { start(.ocr(upload: true)) }
+                Text(Config.environment.capitalized).font(.caption).bold()
+                    .padding(.horizontal, 10).padding(.vertical, 4)
+                    .background(Capsule().fill(Color.orange.opacity(0.25)))
+                Button("Full verification (recommended)") { start(.ocr(upload: false)) }.buttonStyle(.borderedProminent)
+                Button("Use a photo from the library") { start(.ocr(upload: true)) }.buttonStyle(.bordered)
+                Button("Setup check") { step = .setup }.buttonStyle(.bordered)
                 if busy { ProgressView() }
             }.padding(24)
+        case .setup:
+            SetupCheckView(onBack: { step = .home })
         case .ocr(let upload):
             OcrView(sessionId: sessionId, upload: upload,
                     onDone: { text, portrait in step = .ocrDone(text: text, portrait: portrait) },

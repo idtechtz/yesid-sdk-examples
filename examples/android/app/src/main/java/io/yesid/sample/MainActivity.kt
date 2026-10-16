@@ -31,6 +31,7 @@ import kotlinx.coroutines.launch
 /** Where the sample is: a tiny state machine so the integration code stays easy to read. */
 private sealed interface Step {
     data object Home : Step
+    data object Setup : Step
     data class Ocr(val upload: Boolean) : Step
     data class OcrDone(val text: Map<String, String>, val portrait: Bitmap?) : Step
     data class Face(val portrait: Bitmap?) : Step
@@ -83,13 +84,16 @@ private fun SampleApp() {
     when (val s = step) {
         Step.Home -> Centered {
             Text("Yesid SDK sample", style = MaterialTheme.typography.headlineSmall)
+            Text(BuildConfig.ENVIRONMENT.replaceFirstChar { it.uppercase() }, style = MaterialTheme.typography.labelLarge)
             if (!cameraGranted) {
                 Text("The camera permission is needed for scanning and liveness.")
                 Button(onClick = { askCamera.launch(Manifest.permission.CAMERA) }) { Text("Allow camera") }
             }
-            Button(enabled = cameraGranted, onClick = { startWithNewSession(Step.Ocr(upload = false)) }) { Text("Scan an ID document") }
+            Button(enabled = cameraGranted, onClick = { startWithNewSession(Step.Ocr(upload = false)) }) { Text("Full verification (recommended)") }
             Button(onClick = { startWithNewSession(Step.Ocr(upload = true)) }) { Text("Use a photo from the gallery") }
+            Button(onClick = { step = Step.Setup }) { Text("Setup check") }
         }
+        Step.Setup -> SetupCheckScreen(onBack = { step = Step.Home })
         is Step.Ocr -> OcrScreen(
             sessionId = sessionId,
             upload = s.upload,
