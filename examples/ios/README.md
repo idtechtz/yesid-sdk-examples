@@ -67,3 +67,24 @@ The pods are built against ML Kit 6.0.x. Simulator support has not been re-verif
 
 ### Using Firebase in the same app
 From 0.7.1 the Yesid pods contain no Google libraries (checked on the binaries), so Firebase and Yesid resolve to one copy of GoogleDataTransport, GoogleUtilities and the rest. A sample app with Firebase running on a device is still to be recorded in `docs/VERIFIED.md`. Firebase 10.x resolves with ML Kit 6.x (iOS 15.0). Firebase 12 needs ML Kit 7 or later, and so iOS 15.5.
+
+### Firebase added through Swift Package Manager (SPM) while Yesid and ML Kit come from CocoaPods
+This mix can still crash at launch with `unrecognized selector` in `GDTCCTUploadOperation`, even on 0.7.1. The Yesid frameworks contain no Google code, but ML Kit's pods (`GoogleDataTransport`, `GoogleUtilities`, `FBLPromises`, `nanopb`) are then linked next to Firebase's SPM copies of the same libraries. Two copies, same crash.
+
+A workaround reported by an integrator who ships this setup (we have not run it ourselves): in the Podfile, remove those four frameworks from the app's linker flags so ML Kit links against Firebase's SPM copies.
+
+```ruby
+post_integrate do |installer|
+  spm_provided = %w[GoogleDataTransport GoogleUtilities FBLPromises nanopb]
+  installer.aggregate_targets.each do |aggregate|
+    aggregate.user_build_configurations.each_key do |config_name|
+      path = aggregate.xcconfig_path(config_name)
+      next unless File.exist?(path)
+      contents = File.read(path)
+      spm_provided.each { |name| contents.gsub!(" -framework \"#{name}\"", '') }
+      File.write(path, contents)
+    end
+  end
+end
+```
+Things to check if you use it: it edits the generated `Pods-*.xcconfig` files, so it must run after every `pod install` (the hook does that); confirm in the built app that `Frameworks/` holds only one copy of each library and that the console shows no duplicate-class warnings; keep the Firebase and ML Kit versions compatible (see the table above). Native SPM support for the Yesid SDK is being scoped; there is no date yet.
