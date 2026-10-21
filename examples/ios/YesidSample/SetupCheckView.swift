@@ -34,10 +34,19 @@ struct SetupCheckView: View {
         } catch SessionApi.Failure.message(let m) {
             rows.append(("Session endpoint", false, m))
         } catch {
-            rows.append(("Session endpoint", false, "Could not reach SESSION_URL. Is the backend running?"))
+            rows.append(("Session endpoint", false, "Could not reach \(Config.sessionURLHost). Is the backend running, and are the phone and the computer on the same network?"))
         }
-        let cam = AVCaptureDevice.authorizationStatus(for: .video) == .authorized
-        rows.append(("Camera permission", cam, cam ? "Granted." : "Allow the camera in Settings, or you are asked on first scan."))
+        // Ask here when the user has not been asked yet, so this row turns green after the system prompt.
+        var status = AVCaptureDevice.authorizationStatus(for: .video)
+        if status == .notDetermined {
+            _ = await AVCaptureDevice.requestAccess(for: .video)
+            status = AVCaptureDevice.authorizationStatus(for: .video)
+        }
+        let cam = status == .authorized
+        let camHint = cam ? "Granted." : (status == .denied || status == .restricted
+            ? "Denied. Turn the camera on for this app in Settings."
+            : "Not allowed yet.")
+        rows.append(("Camera permission", cam, camHint))
         running = false
     }
 }

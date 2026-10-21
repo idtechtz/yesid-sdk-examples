@@ -12,6 +12,11 @@ enum Config {
     static var consumerUsername: String { values["CONSUMER_USERNAME"] ?? "" }
     static var environment: String { values["ENVIRONMENT"] ?? "sandbox" }
     static var sessionURL: String { values["SESSION_URL"] ?? "" }
+    /// Host and port of SESSION_URL only (safe to show on screen), for the setup check.
+    static var sessionURLHost: String {
+        guard let url = URL(string: sessionURL), let host = url.host else { return "SESSION_URL" }
+        return url.port.map { "\(host):\($0)" } ?? host
+    }
     static var ocrLicense: String { values["OCR_LICENSE"] ?? "" }
     static var faceLicense: String { values["FACE_LICENSE"] ?? "" }
 
