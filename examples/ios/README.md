@@ -6,7 +6,7 @@ A small SwiftUI app that scans an ID document and checks the face against its po
 | Item | Version / note |
 |---|---|
 | Xcode | 15 or newer |
-| iOS | 15.6 or newer |
+| iOS | 15.0 or newer |
 | CocoaPods | 1.15 or newer (`brew install cocoapods`) |
 | XcodeGen | only to regenerate the project from `project.yml` (`brew install xcodegen`); the generated project is included |
 | **A physical iPhone** | see the simulator note below |
@@ -17,13 +17,13 @@ A small SwiftUI app that scans an ID document and checks the face against its po
 source 'https://github.com/idtechtz/yesid-ios-pods-frameworks.git'   # the Yesid pods
 source 'https://cdn.cocoapods.org/'
 
-platform :ios, '15.6'
+platform :ios, '15.0'
 use_frameworks!
 
 target 'YourApp' do
-  pod 'YesidLicensing',          '0.7.0'
-  pod 'YesidOCRCamera',          '0.7.0'
-  pod 'YesidFaceAuthentication', '0.7.0'
+  pod 'YesidLicensing',          '0.7.1'
+  pod 'YesidOCRCamera',          '0.7.1'
+  pod 'YesidFaceAuthentication', '0.7.1'
 end
 ```
 Use the version in `../../docs/VERSION_MATRIX.md`. Then `pod install` and open the `.xcworkspace`. The `post_install` block in this sample's Podfile excludes arm64 for the simulator (ML Kit has no arm64 simulator slice).
@@ -33,9 +33,9 @@ Use the version in `../../docs/VERSION_MATRIX.md`. Then `pod install` and open t
 
 ## 3. Configure the SDK once (`YesidSampleApp.swift`)
 ```swift
-SessionManager.shared.setup(apiKey: "", publishableKey: "...", consumerUsername: "...", environment: .sandbox)
+SessionManager.shared.configure(publishableKey: "...", consumerUsername: "...", environment: .sandbox)
 ```
-The secret API key is not needed in the app (leave it empty); your backend uses it.
+The secret API key is not needed in the app; your backend uses it to create the session and passes the sessionId to the app. (0.7.0 had no keyless setup: there, call `setup(apiKey: "", ...)`.)
 
 ## 4. Get a session from YOUR backend
 Your backend calls the Yesid API and returns a session id; the app passes it to the SDK. A 50-line reference backend is in `../backend` (`node server.js`). See `SessionApi.swift`.
@@ -57,6 +57,13 @@ Without `Config.plist` the app shows a "Configuration missing" screen listing wh
 | "Configuration missing" screen | no `Config.plist` or empty values | fill it in and rebuild |
 | Session error on the home screen | your backend is not running or not reachable from the phone | check `SESSION_URL` and that the phone and Mac are on the same network |
 | "Keep only one card in view" | more than one card in the picture | show one card |
+| Link error `Undefined symbols ... MLK...` or `framework 'X' not found` | the OCR and enrollment frameworks are STATIC (they reference ML Kit, they do not contain it), so your app must link the pods. A hard-coded `OTHER_LDFLAGS` without `$(inherited)` drops them | start your target's `OTHER_LDFLAGS` with `$(inherited)` and remove hand-written `-framework` entries for pods |
+| Launch crash `unrecognized selector` in GoogleDataTransport / duplicate class warnings | an older SDK (0.7.0) embedded its own copy of Google libraries next to the one from Firebase | use 0.7.1 or later, which contains none |
+| `CocoaPods could not find compatible versions for GoogleMLKit/...` | the app's minimum iOS is below what the ML Kit version required by your other pods needs (ML Kit 7+ needs iOS 15.5) | stay on ML Kit 6.x with iOS 15.0, or raise the app minimum to 15.5 |
+| Document scan never starts / "document scanner is not set up correctly" | `YesidOCRResources.bundle` (the card-detection model) is not in the app | run `pod install` again; do not exclude pod resource bundles from your target |
 
-### Known limitation: no iOS simulator on current Xcode
-The Yesid pods bundle ML Kit 3.2.0, which ships no arm64 simulator slice, and recent iOS simulator runtimes on Apple-silicon Macs no longer run x86_64 apps. Until the SDK moves to a newer ML Kit, test on a physical iPhone.
+### Simulator
+The pods are built against ML Kit 6.0.x. Simulator support has not been re-verified with this version; the verified path is a physical iPhone. (On 0.7.0, ML Kit 3.2.0 had no arm64 simulator slice.)
+
+### Using Firebase in the same app
+From 0.7.1 the Yesid pods contain no Google libraries (checked on the binaries), so Firebase and Yesid resolve to one copy of GoogleDataTransport, GoogleUtilities and the rest. A sample app with Firebase running on a device is still to be recorded in `docs/VERIFIED.md`. Firebase 10.x resolves with ML Kit 6.x (iOS 15.0). Firebase 12 needs ML Kit 7 or later, and so iOS 15.5.

@@ -64,7 +64,7 @@ struct OcrView: View {
     }
 }
 
-/// Minimal photo-library picker (works from iOS 15.6).
+/// Minimal photo-library picker.
 struct ImagePicker: UIViewControllerRepresentable {
     let onPick: (UIImage?) -> Void
     func makeCoordinator() -> Coordinator { Coordinator(onPick) }

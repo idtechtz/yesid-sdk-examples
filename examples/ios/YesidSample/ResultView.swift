@@ -14,22 +14,24 @@ struct ResultView: View {
         HStack { Text(k); Spacer(); Text(fields[k] ?? "").multilineTextAlignment(.trailing) }.font(.subheadline)
     }
 
+    /// The Meta Data button: shown above the fields and again below them. Each one expands on its own.
+    private func metaData(_ keys: [String]) -> some View {
+        DisclosureGroup("See Meta Data") {
+            VStack(spacing: 8) { ForEach(keys, id: \.self) { k in row(k) } }.padding(.top, 8)
+        }
+        .padding(12)
+        .background(RoundedRectangle(cornerRadius: 10).fill(Color(.secondarySystemBackground)))
+    }
+
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 10) {
                 Text(title).font(.title2).bold()
                 if let image { Image(uiImage: image).resizable().scaledToFit().frame(height: 180) }
                 let keys = fields.keys.sorted()
+                let extras = Array(keys.dropFirst(Self.headlineCount))
+                if !extras.isEmpty { metaData(extras) }
                 ForEach(keys.prefix(Self.headlineCount), id: \.self) { k in row(k) }
-                if keys.count > Self.headlineCount {
-                    // Same collapsible card the Yesid demo uses for its extra result metadata.
-                    DisclosureGroup("More Highlights") {
-                        VStack(spacing: 8) { ForEach(Array(keys.dropFirst(Self.headlineCount)), id: \.self) { k in row(k) } }
-                            .padding(.top, 8)
-                    }
-                    .padding(12)
-                    .background(RoundedRectangle(cornerRadius: 10).fill(Color(.secondarySystemBackground)))
-                }
                 Button(primary.0, action: primary.1).buttonStyle(.borderedProminent)
                 Button(secondary.0, action: secondary.1).buttonStyle(.bordered)
             }.padding(24)

@@ -2,10 +2,10 @@
 source 'https://github.com/idtechtz/yesid-ios-pods-frameworks.git'
 source 'https://cdn.cocoapods.org/'
 
-platform :ios, '15.6'
+platform :ios, '15.0'
 use_frameworks!
 
-YESID_VERSION = '0.7.0'   # the version in ../../docs/VERSION_MATRIX.md
+YESID_VERSION = '0.7.1'   # the version in ../../docs/VERSION_MATRIX.md
 
 target 'YesidSample' do
   pod 'YesidLicensing',          YESID_VERSION
@@ -16,7 +16,7 @@ end
 post_install do |installer|
   installer.pods_project.targets.each do |t|
     t.build_configurations.each do |c|
-      c.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '15.6'
+      c.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '15.0'
     end
   end
   # ML Kit has no arm64 simulator slice: on Apple-silicon Macs run the simulator as x86_64 (Rosetta).

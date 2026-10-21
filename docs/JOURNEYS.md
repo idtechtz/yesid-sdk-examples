@@ -16,7 +16,7 @@ Three rows, each with a tick or a cross and a one-line fix:
 
 ## Main journey
 1. Document (camera or photo).
-2. Review: portrait and fields; "More Highlights" holds the extra fields.
+2. Review: portrait and fields; "See Meta Data" holds the extra fields.
 3. Face check.
 4. Result.
 

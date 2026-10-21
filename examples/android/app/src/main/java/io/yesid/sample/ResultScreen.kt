@@ -39,20 +39,9 @@ internal fun ResultScreen(
         Text(title, style = MaterialTheme.typography.headlineSmall)
         image?.let { Image(it.asImageBitmap(), contentDescription = "Portrait", modifier = Modifier.height(180.dp)) }
         val entries = fields.entries.toList()
+        val extras = entries.drop(HEADLINE_COUNT)
+        if (extras.isNotEmpty()) MetaDataCard(extras)
         entries.take(HEADLINE_COUNT).forEach { FieldRow(it.key, it.value) }
-        if (entries.size > HEADLINE_COUNT) {
-            // Same collapsible card the Yesid demo uses for its extra result metadata.
-            var expanded by remember { mutableStateOf(false) }
-            Card(Modifier.fillMaxWidth().clickable { expanded = !expanded }) {
-                Column(Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                    Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-                        Text("More Highlights", style = MaterialTheme.typography.titleSmall)
-                        Text(if (expanded) "▲" else "▼")
-                    }
-                    if (expanded) entries.drop(HEADLINE_COUNT).forEach { FieldRow(it.key, it.value) }
-                }
-            }
-        }
         Button(onClick = primary.second, modifier = Modifier.fillMaxWidth()) { Text(primary.first) }
         OutlinedButton(onClick = secondary.second, modifier = Modifier.fillMaxWidth()) { Text(secondary.first) }
     }
@@ -65,5 +54,20 @@ private fun FieldRow(k: String, v: String) {
     Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
         Text(k, style = MaterialTheme.typography.bodyMedium)
         Text(v, style = MaterialTheme.typography.bodyMedium)
+    }
+}
+
+/** The Meta Data button: shown above the fields and again below them. Each one expands on its own. */
+@Composable
+private fun MetaDataCard(extras: List<Map.Entry<String, String>>) {
+    var expanded by remember { mutableStateOf(false) }
+    Card(Modifier.fillMaxWidth().clickable { expanded = !expanded }) {
+        Column(Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+                Text("See Meta Data", style = MaterialTheme.typography.titleSmall)
+                Text(if (expanded) "▲" else "▼")
+            }
+            if (expanded) extras.forEach { FieldRow(it.key, it.value) }
+        }
     }
 }
