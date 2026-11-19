@@ -110,7 +110,8 @@ private fun SampleApp() {
                 title = "Document scanned",
                 fields = s.text,
                 image = s.portrait,
-                primary = "Continue to face check" to { startWithNewSession(Step.Face(s.portrait)) },
+                // SAME session as the document: the server matches the selfie with the portrait of THIS session's document.
+                primary = "Continue to face check" to { step = Step.Face(s.portrait) },
                 secondary = "Start over" to { step = Step.Home },
             )
         }
@@ -120,7 +121,8 @@ private fun SampleApp() {
                 sessionId = sessionId,
                 portrait = s.portrait,
                 onDone = { summary -> step = Step.FaceDone(summary, s.portrait) },
-                onNeedNewSession = { startWithNewSession(Step.Face(s.portrait)) },
+                // A new session has no document yet, so the whole flow starts again from the document.
+                onNeedNewSession = { startWithNewSession(Step.Ocr(false)) },
             )
         }
         is Step.FaceDone -> Column {

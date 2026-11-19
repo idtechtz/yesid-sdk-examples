@@ -21,9 +21,9 @@ platform :ios, '15.0'
 use_frameworks!
 
 target 'YourApp' do
-  pod 'YesidLicensing',          '0.7.1'
-  pod 'YesidOCRCamera',          '0.7.1'
-  pod 'YesidFaceAuthentication', '0.7.1'
+  pod 'YesidLicensing',          '0.7.2'
+  pod 'YesidOCRCamera',          '0.7.2'
+  pod 'YesidFaceAuthentication', '0.7.2'
 end
 ```
 Use the version in `../../docs/VERSION_MATRIX.md`. Then `pod install` and open the `.xcworkspace`. The `post_install` block in this sample's Podfile excludes arm64 for the simulator (ML Kit has no arm64 simulator slice).
