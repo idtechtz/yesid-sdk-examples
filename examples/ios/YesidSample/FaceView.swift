@@ -35,7 +35,8 @@ struct FaceView: View {
 
     private func finish() {
         guard let s = similarity else { return }
-        var summary = ["faceSimilarity": String(format: "%.1f %%", s)]
+        // similarity is on a 0 to 1 scale
+        var summary = ["faceSimilarity": String(format: "%.1f %%", s * 100)]
         if let assessment { summary["captureAssessment"] = assessment }
         onDone(summary)
     }

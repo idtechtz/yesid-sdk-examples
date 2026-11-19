@@ -34,7 +34,7 @@ internal fun FaceScreen(
     fun finish() {
         val s = similarity ?: return
         onDone(buildMap {
-            put("faceSimilarity", "%.1f %%".format(s))
+            put("faceSimilarity", "%.1f %%".format(s * 100) // similarity is on a 0 to 1 scale)
             assessment?.let { put("captureAssessment", it) }
         })
     }

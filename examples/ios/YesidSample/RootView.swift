@@ -7,7 +7,7 @@ enum Step {
     case setup
     case ocr(upload: Bool)
     case ocrDone(text: [String: String], portrait: UIImage?)
-    case face(portrait: UIImage?)
+    case face(text: [String: String], portrait: UIImage?)
     case faceDone(summary: [String: String], portrait: UIImage?)
     case error(String)
 }
@@ -16,6 +16,8 @@ struct RootView: View {
     @State private var step: Step = .home
     @State private var sessionId = ""
     @State private var busy = false
+    /// Bumped to mount the face camera again on the SAME session (Start over on the face step).
+    @State private var faceAttempt = 0
 
     var body: some View {
         let missing = Config.missing()
@@ -47,7 +49,8 @@ struct RootView: View {
         case .ocr(let upload):
             VStack(spacing: 0) {
                 StepHeader(step: 1, title: "Document",
-                           hint: "SDK call: OCRCameraUI(configurationBuilder:) in OcrView.swift")
+                           hint: "SDK call: OCRCameraUI(configurationBuilder:) in OcrView.swift",
+                           onBack: { step = .home })
                 OcrView(sessionId: sessionId, upload: upload,
                         onDone: { text, portrait in step = .ocrDone(text: text, portrait: portrait) },
                         onNeedNewSession: { start(.ocr(upload: upload)) })
@@ -55,18 +58,23 @@ struct RootView: View {
         case .ocrDone(let text, let portrait):
             VStack(spacing: 0) {
                 StepHeader(step: 2, title: "Review",
-                           hint: "Fields: response.documentText. Portrait: response.documentImages[\"portrait\"] (OcrView.swift)")
+                           hint: "Fields: response.documentText. Portrait: response.documentImages[\"portrait\"] (OcrView.swift)",
+                           onBack: { step = .home })
                 ResultView(title: "Document scanned", fields: text, image: portrait,
-                           primary: ("Continue to face check", { start(.face(portrait: portrait)) }),
+                           // SAME session as the document: the server matches the selfie with the portrait of THIS session's document.
+                           primary: ("Continue to face check", { step = .face(text: text, portrait: portrait) }),
                            secondary: ("Start over", { step = .home }))
             }
-        case .face(let portrait):
+        case .face(let text, let portrait):
             VStack(spacing: 0) {
                 StepHeader(step: 3, title: "Face check",
-                           hint: "SDK call: FaceAuthCameraUI(configurationBuilder:) in FaceView.swift")
+                           hint: "SDK call: FaceAuthCameraUI(configurationBuilder:) in FaceView.swift",
+                           onBack: { step = .ocrDone(text: text, portrait: portrait) })
                 FaceView(sessionId: sessionId, portrait: portrait,
                          onDone: { summary in step = .faceDone(summary: summary, portrait: portrait) },
-                         onNeedNewSession: { start(.face(portrait: portrait)) })
+                         // Start over: the face camera again, on the same session (it keeps the document).
+                         onNeedNewSession: { faceAttempt += 1 })
+                    .id(faceAttempt)
             }
         case .faceDone(let summary, let portrait):
             VStack(spacing: 0) {
